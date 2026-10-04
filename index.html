@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="description" content="人生の輪の8つの領域から、内省のための問いをランダムに引けるカードです。">
+  <meta name="theme-color" content="#FFFDFA">
+  <meta name="format-detection" content="telephone=no">
+  <title>内省の問いカード｜COACHING-L</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect x='10' y='4' width='44' height='56' rx='10' fill='%23B8613F'/%3E%3Ccircle cx='32' cy='32' r='10' fill='none' stroke='%23FFFDFA' stroke-width='4'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="page">
+    <header class="site-header">
+      <h1 class="title">内省の問いカード</h1>
+      <p class="lead"><span class="phrase">「人生の輪」の8つの領域から、</span><span class="phrase">自分に問いかけてみましょう。</span></p>
+    </header>
+
+    <main>
+      <section class="categories" aria-labelledby="category-heading">
+        <h2 id="category-heading" class="section-label">カテゴリを選ぶ</h2>
+        <div class="category-list" id="category-list" role="group" aria-labelledby="category-heading">
+          <!-- app.js がボタンを作ります -->
+        </div>
+      </section>
+
+      <section class="deck" aria-label="問いカード">
+        <div class="card" id="card" role="button" tabindex="0" aria-describedby="card-hint">
+          <div class="card-inner">
+            <div class="card-face card-back" id="card-back">
+              <div class="card-back-frame">
+                <span class="card-emblem" aria-hidden="true"></span>
+                <p class="card-back-category" id="card-back-category">すべて</p>
+                <p class="card-back-hint">タップして問いを引く</p>
+              </div>
+            </div>
+            <div class="card-face card-front" id="card-front" aria-hidden="true">
+              <div class="card-band" aria-hidden="true"></div>
+              <p class="card-category"><span class="card-dot" aria-hidden="true"></span><span id="card-category"></span></p>
+              <p class="card-question" id="card-question"></p>
+            </div>
+          </div>
+        </div>
+        <p class="visually-hidden" id="card-hint">Enter キーまたはスペースキーでカードをめくれます。</p>
+
+        <div class="controls">
+          <button type="button" class="next-button" id="next-button">次のカード</button>
+          <p class="remaining" id="remaining" aria-live="polite"></p>
+        </div>
+
+        <p class="notice" id="notice" role="status" aria-live="polite"></p>
+        <p class="sr-announce visually-hidden" id="sr-announce" aria-live="polite"></p>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p class="usage"><span class="phrase">問いに正解はありません。</span><span class="phrase">思い浮かんだことを、</span><span class="phrase">ノートに書き出してみましょう。</span></p>
+      <p class="brand">COACHING-L</p>
+    </footer>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
