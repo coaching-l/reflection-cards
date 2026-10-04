@@ -1,0 +1,455 @@
+:root {
+  --bg: #FFFDFA;
+  --text: #2E2B28;
+  --muted: #726B63;
+  --line: #E8E1D8;
+  --panel: #F6F1EB;
+  --accent: #B8613F;
+
+  /* app.js がカテゴリに合わせて上書きします */
+  --cat: var(--accent);
+  --cat-tint: rgba(184, 97, 63, 0.12);
+  --deck: var(--accent);
+  --deck-tint: rgba(184, 97, 63, 0.12);
+
+  --radius-lg: 24px;
+  --radius-md: 16px;
+  --radius-pill: 999px;
+  --flip-duration: 0.5s;
+
+  --font: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Hiragino Kaku Gothic ProN",
+    "Yu Gothic UI", "Yu Gothic", "Meiryo", "Noto Sans JP", "Noto Sans CJK JP", sans-serif;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font);
+  font-size: 16px;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.page {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: calc(24px + env(safe-area-inset-top)) calc(16px + env(safe-area-inset-right))
+    calc(32px + env(safe-area-inset-bottom)) calc(16px + env(safe-area-inset-left));
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex: 1;
+}
+
+.visually-hidden {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* 日本語の文節で改行させるためのまとまり */
+.phrase {
+  display: inline-block;
+}
+
+/* ヘッダー */
+.site-header {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.title {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+}
+
+.lead {
+  margin: 6px 0 0;
+  color: var(--muted);
+  font-size: 0.875rem;
+}
+
+/* カテゴリ選択 */
+.section-label {
+  margin: 0 0 10px;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--muted);
+  letter-spacing: 0.04em;
+}
+
+.category-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.category-button {
+  --c: var(--accent);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 40px;
+  padding: 6px 14px;
+  border: 1.5px solid var(--line);
+  border-radius: var(--radius-pill);
+  background: var(--bg);
+  color: var(--text);
+  font: inherit;
+  font-size: 0.875rem;
+  line-height: 1.3;
+  cursor: pointer;
+  transition: background-color 0.2s, border-color 0.2s;
+  touch-action: manipulation;
+}
+
+.category-button::before {
+  content: "";
+  width: 10px;
+  height: 10px;
+  flex: none;
+  border-radius: 50%;
+  background: var(--c);
+}
+
+.category-button:hover {
+  border-color: var(--c);
+}
+
+.category-button[aria-pressed="true"] {
+  border-color: var(--c);
+  background: var(--c-tint, var(--panel));
+  font-weight: 700;
+  box-shadow: inset 0 0 0 1px var(--c);
+}
+
+/* カード */
+.deck {
+  margin-top: 28px;
+}
+
+.card {
+  display: block;
+  width: 100%;
+  max-width: 440px;
+  margin: 0 auto;
+  border-radius: var(--radius-lg);
+  perspective: 1400px;
+  -webkit-perspective: 1400px;
+  cursor: pointer;
+  outline: none;
+  touch-action: manipulation;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.card.is-flipped {
+  cursor: default;
+  -webkit-user-select: text;
+  user-select: text;
+}
+
+.card:focus-visible .card-face {
+  box-shadow: 0 0 0 3px var(--bg), 0 0 0 6px var(--accent);
+}
+
+.card-inner {
+  position: relative;
+  display: grid;
+  min-height: 320px;
+  transform-style: preserve-3d;
+  -webkit-transform-style: preserve-3d;
+  transition: transform var(--flip-duration) cubic-bezier(0.4, 0.1, 0.25, 1);
+}
+
+.card.is-flipped .card-inner {
+  transform: rotateY(180deg);
+}
+
+.card-face {
+  grid-area: 1 / 1;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--line);
+  overflow: hidden;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  box-shadow: 0 10px 28px rgba(46, 43, 40, 0.08), 0 2px 6px rgba(46, 43, 40, 0.05);
+}
+
+/* 裏面（引く前） */
+.card-back {
+  background: var(--panel);
+  padding: 14px;
+  transform: rotateY(0deg);
+}
+
+.card-back-frame {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 28px 20px;
+  border: 2px solid var(--deck);
+  border-radius: 16px;
+  background:
+    radial-gradient(circle at 50% 50%, var(--deck-tint) 0, var(--deck-tint) 38%, transparent 38.5%),
+    var(--bg);
+  text-align: center;
+  transition: border-color 0.3s;
+}
+
+.card-emblem {
+  position: relative;
+  width: 64px;
+  height: 64px;
+  margin-bottom: 10px;
+  border-radius: 50%;
+  background: conic-gradient(
+    #D9775B 0 12.5%,
+    #DE9F4E 0 25%,
+    #BFAE45 0 37.5%,
+    #7EA26A 0 50%,
+    #4E9993 0 62.5%,
+    #5A85B7 0 75%,
+    #8B76B4 0 87.5%,
+    #C06C99 0 100%
+  );
+}
+
+.card-emblem::after {
+  content: "";
+  position: absolute;
+  inset: 18px;
+  border-radius: 50%;
+  background: var(--bg);
+}
+
+.card-emblem.is-single {
+  background: var(--deck);
+}
+
+.card-back-category {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+.card-back-hint {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.9375rem;
+}
+
+/* 表面（問い） */
+.card-front {
+  background: var(--bg);
+  transform: rotateY(180deg);
+  padding: 0 24px 32px;
+}
+
+.card-band {
+  height: 14px;
+  margin: 0 -24px 22px;
+  background: var(--cat);
+}
+
+.card-category {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  align-self: flex-start;
+  margin: 0;
+  padding: 4px 12px;
+  border-radius: var(--radius-pill);
+  background: var(--cat-tint);
+  font-size: 0.8125rem;
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+.card-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--cat);
+}
+
+.card-question {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  margin: 20px 0 0;
+  font-size: 1.3125rem;
+  font-weight: 700;
+  line-height: 1.8;
+  letter-spacing: 0.02em;
+  word-break: normal;
+  overflow-wrap: anywhere;
+  line-break: strict;
+  word-break: auto-phrase;
+}
+
+/* 操作 */
+.controls {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  margin-top: 24px;
+}
+
+.next-button {
+  min-width: 200px;
+  min-height: 52px;
+  padding: 12px 32px;
+  border: none;
+  border-radius: var(--radius-pill);
+  background: var(--accent);
+  color: #FFFFFF;
+  font: inherit;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(184, 97, 63, 0.25);
+  transition: background-color 0.2s, transform 0.1s;
+  touch-action: manipulation;
+}
+
+.next-button:hover {
+  background: #A55536;
+}
+
+.next-button:active {
+  transform: translateY(1px);
+}
+
+.next-button:focus-visible {
+  outline: 3px solid var(--text);
+  outline-offset: 3px;
+}
+
+.next-button:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.remaining {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.8125rem;
+}
+
+.notice {
+  max-width: 440px;
+  margin: 16px auto 0;
+  padding: 0;
+  text-align: center;
+  color: var(--text);
+  font-size: 0.875rem;
+}
+
+.notice:not(:empty) {
+  padding: 10px 16px;
+  border-radius: var(--radius-md);
+  background: var(--panel);
+  border: 1px solid var(--line);
+}
+
+/* フッター */
+.site-footer {
+  margin-top: 40px;
+  padding-top: 20px;
+  border-top: 1px solid var(--line);
+  text-align: center;
+}
+
+.usage {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.875rem;
+}
+
+.brand {
+  margin: 12px 0 0;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  color: var(--accent);
+}
+
+/* タブレット・PC */
+@media (min-width: 600px) {
+  .page {
+    padding-top: 48px;
+  }
+
+  .title {
+    font-size: 1.75rem;
+  }
+
+  .category-list {
+    justify-content: center;
+  }
+
+  .section-label {
+    text-align: center;
+  }
+
+  .card-inner {
+    min-height: 360px;
+  }
+
+  .card-front {
+    padding: 0 36px 40px;
+  }
+
+  .card-band {
+    margin: 0 -36px 26px;
+  }
+
+  .card-question {
+    font-size: 1.5rem;
+  }
+}
+
+/* 動きを減らす設定 */
+@media (prefers-reduced-motion: reduce) {
+  .card-inner,
+  .card-back-frame,
+  .category-button,
+  .next-button {
+    transition: none !important;
+  }
+}
