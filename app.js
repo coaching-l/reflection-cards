@@ -289,6 +289,7 @@
   function showLoadError() {
     els.card.setAttribute("aria-disabled", "true");
     els.nextButton.disabled = true;
+    document.querySelector(".skip-hint").hidden = true;
     els.backCategory.textContent = "読み込みに失敗しました";
     document.querySelector(".card-back-hint").textContent = "ページを再読み込みしてください。";
     setNotice("問いのデータを読み込めませんでした。時間をおいて、もう一度お試しください。");
