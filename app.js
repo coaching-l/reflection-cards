@@ -3,7 +3,7 @@
 
   var ALL_ID = "all";
   var ALL_NAME = "すべて";
-  var ACCENT = "#B8613F";
+  var GOLD = "#C09E5C"; // 「すべて」の印の色（COACHING-L の金）
 
   var els = {
     categoryList: document.getElementById("category-list"),
@@ -11,7 +11,6 @@
     cardBack: document.getElementById("card-back"),
     cardFront: document.getElementById("card-front"),
     backCategory: document.getElementById("card-back-category"),
-    emblem: document.querySelector(".card-emblem"),
     frontCategory: document.getElementById("card-category"),
     question: document.getElementById("card-question"),
     nextButton: document.getElementById("next-button"),
@@ -125,11 +124,10 @@
 
   function renderBack() {
     var isAll = state.selected === ALL_ID;
-    var color = isAll ? ACCENT : state.byId[state.selected].color;
+    var color = isAll ? GOLD : state.byId[state.selected].color;
     els.backCategory.textContent = isAll ? ALL_NAME : state.byId[state.selected].name;
     els.card.style.setProperty("--deck", color);
-    els.card.style.setProperty("--deck-tint", hexToRgba(color, 0.12));
-    els.emblem.classList.toggle("is-single", !isAll);
+    els.cardBack.classList.toggle("is-all", isAll);
   }
 
   function renderFront(item) {
@@ -163,8 +161,17 @@
     button.setAttribute("data-cat", id);
     button.setAttribute("aria-pressed", "false");
     button.style.setProperty("--c", color);
-    button.style.setProperty("--c-tint", hexToRgba(color, 0.14));
-    button.textContent = name;
+    // 「仕事・キャリア」などは「・」の後ろでだけ改行させる（語の途中で折り返さないように）
+    var label = document.createElement("span");
+    label.className = "category-label";
+    var parts = name.split("・");
+    parts.forEach(function (part, i) {
+      var span = document.createElement("span");
+      span.className = "phrase";
+      span.textContent = i < parts.length - 1 ? part + "・" : part;
+      label.appendChild(span);
+    });
+    button.appendChild(label);
     button.addEventListener("click", function () {
       selectCategory(id, true);
     });
@@ -285,9 +292,9 @@
     });
 
     var fragment = document.createDocumentFragment();
-    fragment.appendChild(createCategoryButton(ALL_ID, ALL_NAME, ACCENT));
+    fragment.appendChild(createCategoryButton(ALL_ID, ALL_NAME, GOLD));
     state.categories.forEach(function (cat) {
-      fragment.appendChild(createCategoryButton(cat.id, cat.name, cat.color || ACCENT));
+      fragment.appendChild(createCategoryButton(cat.id, cat.name, cat.color || GOLD));
     });
     els.categoryList.appendChild(fragment);
 
