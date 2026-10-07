@@ -15,7 +15,6 @@
     frontCategory: document.getElementById("card-category"),
     question: document.getElementById("card-question"),
     nextButton: document.getElementById("next-button"),
-    remaining: document.getElementById("remaining"),
     notice: document.getElementById("notice"),
     srAnnounce: document.getElementById("sr-announce")
   };
@@ -99,7 +98,6 @@
     if (state.deck.length === 0) {
       setNotice("すべての問いを引きました。次のカードから、山札を作り直します。");
     }
-    updateRemaining();
     return state.current;
   }
 
@@ -114,10 +112,6 @@
     window.setTimeout(function () {
       els.srAnnounce.textContent = text;
     }, 50);
-  }
-
-  function updateRemaining() {
-    els.remaining.textContent = "残り " + state.deck.length + " 枚";
   }
 
   function renderBack() {
@@ -232,7 +226,6 @@
     renderBack();
     setFlipped(false);
     buildDeck();
-    updateRemaining();
     setNotice("");
 
     if (updateUrl) syncUrl(id);
@@ -296,6 +289,7 @@
   function showLoadError() {
     els.card.setAttribute("aria-disabled", "true");
     els.nextButton.disabled = true;
+    document.querySelector(".skip-hint").hidden = true;
     els.backCategory.textContent = "読み込みに失敗しました";
     document.querySelector(".card-back-hint").textContent = "ページを再読み込みしてください。";
     setNotice("問いのデータを読み込めませんでした。時間をおいて、もう一度お試しください。");
