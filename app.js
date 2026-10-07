@@ -96,15 +96,24 @@
     setNotice("");
     state.current = state.deck.pop();
     if (state.deck.length === 0) {
-      setNotice("すべての問いを引きました。次のカードから、山札を作り直します。");
+      var scope = state.selected === ALL_ID ? "すべての問い" : "このカテゴリの問い";
+      setNotice([scope + "を、", "ひと通り引きました。", "「次のカード」を押すと、", "最初からもう一度引けます。"]);
     }
     return state.current;
   }
 
   /* ---------- 表示 ---------- */
 
-  function setNotice(text) {
-    els.notice.textContent = text;
+  // 文節ごとの配列を渡すと、文節の途中で改行しないように表示する
+  function setNotice(parts) {
+    els.notice.textContent = "";
+    [].concat(parts).forEach(function (part) {
+      if (!part) return;
+      var span = document.createElement("span");
+      span.className = "phrase";
+      span.textContent = part;
+      els.notice.appendChild(span);
+    });
   }
 
   function announce(text) {
@@ -292,7 +301,7 @@
     document.querySelector(".skip-hint").hidden = true;
     els.backCategory.textContent = "読み込みに失敗しました";
     document.querySelector(".card-back-hint").textContent = "ページを再読み込みしてください。";
-    setNotice("問いのデータを読み込めませんでした。時間をおいて、もう一度お試しください。");
+    setNotice(["問いのデータを読み込めませんでした。", "時間をおいて、", "もう一度お試しください。"]);
   }
 
   fetch("questions.json", { cache: "no-cache" })
