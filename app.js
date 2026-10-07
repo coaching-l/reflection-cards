@@ -163,6 +163,7 @@
     button.style.setProperty("--c", color);
     // 「仕事・キャリア」などは「・」の後ろでだけ改行させる（語の途中で折り返さないように）
     var label = document.createElement("span");
+    label.className = "category-label";
     var parts = name.split("・");
     parts.forEach(function (part, i) {
       var span = document.createElement("span");

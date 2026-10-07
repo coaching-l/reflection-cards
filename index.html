@@ -14,7 +14,8 @@
   <link rel="icon" href="icons/icon-192.png" sizes="192x192" type="image/png">
   <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
   <meta name="apple-mobile-web-app-title" content="問いカード">
-  <link rel="stylesheet" href="style.css">
+  <!-- ?v= は style.css・app.js を変えるたびに1つ上げる（ブラウザに古いファイルが残って、表示が崩れるのを防ぐ） -->
+  <link rel="stylesheet" href="style.css?v=2">
 </head>
 <body>
   <div class="app">
@@ -41,7 +42,7 @@
           <div class="card-inner">
             <div class="card-face card-back is-all" id="card-back">
               <div class="card-back-frame">
-                <img class="card-logo" src="icons/logo-144.png" width="72" height="72" alt="">
+                <img class="card-logo" src="icons/logo-144.png" width="72" height="72" alt="" draggable="false">
                 <p class="card-back-category"><span class="card-back-dot" aria-hidden="true"></span><span id="card-back-category">すべて</span></p>
                 <p class="card-back-hint">タップして問いを引く</p>
               </div>
@@ -71,6 +72,6 @@
     </footer>
   </div>
 
-  <script src="app.js"></script>
+  <script src="app.js?v=2"></script>
 </body>
 </html>

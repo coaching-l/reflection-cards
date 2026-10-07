@@ -33,6 +33,8 @@
 | `questions.json` | カテゴリと問いのデータ |
 | `icons/` | ロゴとファビコン（ポモドーロタイマーと同じ画像） |
 
+`style.css` や `app.js` を変えたときは、`index.html` の中の `style.css?v=2`・`app.js?v=2` の数字を1つ上げてください。ブラウザに古いファイルが残って、表示が崩れるのを防ぐためです（`questions.json` だけを変えたときは不要です）。
+
 ## 公開URLの形式
 
 GitHub Pages（main ブランチのルート）で公開します。

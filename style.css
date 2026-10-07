@@ -203,7 +203,7 @@ main {
   justify-content: center;
   gap: 6px;
   min-height: 48px;
-  padding: 6px 6px;
+  padding: 6px 4px;
   border: 1.5px solid var(--border);
   border-radius: var(--radius-small);
   background: var(--surface);
@@ -219,14 +219,17 @@ main {
   transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
 }
 
-/* カテゴリの色の印（ブログの「人生の輪」と同じ色） */
-.category-button::before {
+/* カテゴリの色の印（ブログの「人生の輪」と同じ色）。
+   名前の先頭に置き、名前が2行になっても1行目の文字に寄り添うようにする */
+.category-label::before {
   content: "";
+  display: inline-block;
   width: 10px;
   height: 10px;
-  flex: none;
+  margin-right: 6px;
   border-radius: 50%;
   background: var(--c);
+  vertical-align: 0;
 }
 
 .category-button:hover {
@@ -240,8 +243,24 @@ main {
 }
 
 /* 選んだボタンの上でも色の印が埋もれないよう、縁取りを付ける */
-.category-button[aria-pressed="true"]::before {
+.category-button[aria-pressed="true"] .category-label::before {
   box-shadow: 0 0 0 2px var(--accent-contrast);
+}
+
+/* Windows のハイコントラスト表示では色が置き換わるため、選んだボタンに内側の枠を付けて見分けられるようにする */
+@media (forced-colors: active) {
+  .category-button[aria-pressed="true"] {
+    border-color: Highlight;
+    outline: 2px solid Highlight;
+    outline-offset: -5px;
+  }
+
+  /* カテゴリの色の印は、そのままの色で残す */
+  .category-label::before,
+  .card-back-dot,
+  .card-dot {
+    forced-color-adjust: none;
+  }
 }
 
 /* ---------- カード ---------- */
@@ -324,6 +343,10 @@ main {
   width: 72px;
   height: 72px;
   margin-bottom: 12px;
+  /* 長押しで画像のメニューが出たり、ドラッグで画像をつかんだりせず、カードのタップとして扱う */
+  pointer-events: none;
+  -webkit-touch-callout: none;
+  -webkit-user-drag: none;
 }
 
 .card-back-category {
@@ -491,10 +514,16 @@ main {
 
 /* 3列のボタンに名前が収まるよう、色の印を名前の上に置く */
 @media (max-width: 359px) {
-  .category-button {
-    flex-direction: column;
-    gap: 4px;
-    padding: 6px 4px;
+  .category-label::before {
+    display: block;
+    margin: 0 auto 4px;
+  }
+}
+
+/* 拡大表示などで幅 300px 未満になったときは2列にして、名前が語の途中で折り返さないようにする */
+@media (max-width: 299px) {
+  .category-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
