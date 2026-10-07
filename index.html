@@ -4,18 +4,29 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="description" content="人生の輪の8つの領域から、内省のための問いをランダムに引けるカードです。">
-  <meta name="theme-color" content="#FFFDFA">
   <meta name="format-detection" content="telephone=no">
-  <title>内省の問いカード｜COACHING-L</title>
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect x='10' y='4' width='44' height='56' rx='10' fill='%23B8613F'/%3E%3Ccircle cx='32' cy='32' r='10' fill='none' stroke='%23FFFDFA' stroke-width='4'/%3E%3C/svg%3E">
+  <meta name="referrer" content="no-referrer">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#f7f8fa" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#02172f" media="(prefers-color-scheme: dark)">
+  <title>内省の問いカード | COACHING-L</title>
+  <link rel="icon" href="icons/favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="icon" href="icons/icon-192.png" sizes="192x192" type="image/png">
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+  <meta name="apple-mobile-web-app-title" content="問いカード">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="page">
-    <header class="site-header">
-      <h1 class="title">内省の問いカード</h1>
-      <p class="lead"><span class="phrase">「人生の輪」の8つの領域から、</span><span class="phrase">自分に問いかけてみましょう。</span></p>
+  <div class="app">
+    <!-- ロゴ＋COACHING-L（ポモドーロタイマーと同じ組み方） -->
+    <header class="brand-header">
+      <img class="brand-logo" src="icons/logo-144.png" width="52" height="52" alt="">
+      <div>
+        <p class="brand-name">COACHING-L</p>
+        <h1 class="app-title">内省の問いカード</h1>
+      </div>
     </header>
+    <p class="intro"><span class="phrase">「人生の輪」の8つの領域から、</span><span class="phrase">自分に問いかけてみましょう。</span></p>
 
     <main>
       <section class="categories" aria-labelledby="category-heading">
@@ -28,10 +39,10 @@
       <section class="deck" aria-label="問いカード">
         <div class="card" id="card" role="button" tabindex="0" aria-describedby="card-hint">
           <div class="card-inner">
-            <div class="card-face card-back" id="card-back">
+            <div class="card-face card-back is-all" id="card-back">
               <div class="card-back-frame">
-                <span class="card-emblem" aria-hidden="true"></span>
-                <p class="card-back-category" id="card-back-category">すべて</p>
+                <img class="card-logo" src="icons/logo-144.png" width="72" height="72" alt="">
+                <p class="card-back-category"><span class="card-back-dot" aria-hidden="true"></span><span id="card-back-category">すべて</span></p>
                 <p class="card-back-hint">タップして問いを引く</p>
               </div>
             </div>
@@ -54,9 +65,9 @@
       </section>
     </main>
 
-    <footer class="site-footer">
-      <p class="usage"><span class="phrase">問いに正解はありません。</span><span class="phrase">思い浮かんだことを、</span><span class="phrase">ノートに書き出してみましょう。</span></p>
-      <p class="brand">COACHING-L</p>
+    <footer class="app-footer">
+      <p class="footer-brand">COACHING-L</p>
+      <p class="footer-note"><span class="phrase">問いに正解はありません。</span><span class="phrase">思い浮かんだことを、</span><span class="phrase">ノートに書き出してみましょう。</span></p>
     </footer>
   </div>
 
