@@ -40,14 +40,14 @@
 GitHub Pages（main ブランチのルート）で公開します。
 
 ```
-https://coaching-l.github.io/reflection-cards/
+https://tools.coaching-l.net/reflection-cards/
 ```
 
 URL の末尾に `?cat=カテゴリID` を付けると、そのカテゴリが選ばれた状態で始まります。
 「人生の輪」で気になった領域（変化を起こす準備ができている領域）から、直接リンクするときに使えます。
 
 ```
-https://coaching-l.github.io/reflection-cards/?cat=money
+https://tools.coaching-l.net/reflection-cards/?cat=money
 ```
 
 ### `?cat=` で使えるカテゴリID
